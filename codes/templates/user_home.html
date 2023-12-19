@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery Application</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary"> <!-- Changed the background color to primary -->
+    <div class="container">
+        <a class="navbar-brand">GroceryGo</a>
+        
+        <div class="navbar">
+            <div>
+                <!-- <a href="#">Home</a>
+                <a href="#">Products</a>
+                <a href="#">Cart</a> -->  
+                
+                
+                    <a href="{{ url_for('user_logout') }}" class="nav-link navbar-brand">Logout</a> <!-- Added 'nav-link' class -->
+                    <span class="space-between"></span>
+                    <a href="{{ url_for('user_sections') }}" class="nav-link navbar-brand">View Sections</a> <!-- Added 'nav-link' class -->
+               
+    
+            </div>
+            <!-- <form class="search-form">
+                <input type="text" placeholder="Search..." />
+                <input type="submit" value="Search" />
+            </form> -->
+        </div>
+    </div>
+</nav>
+
+<section class="jumbotron text-center bg-dark text-white"> <!-- Changed the background color to dark and text color to white -->
+    <div class="container">
+        <h1 class="display-4">User's own GroceryGo</h1>
+    </div>
+</section>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<footer class="bg-dark text-white text-center py-3">
+    <p>&copy; 2023 Grocery App. All rights reserved.</p>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script src="scripts.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+

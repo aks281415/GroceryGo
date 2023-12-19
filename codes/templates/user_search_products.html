@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            background-color: #fceded;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin-top: 20px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .btn-primary {
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 4px;
+            background-color: #908f85;
+            border-color: #83b3e6;
+        }
+
+        .btn-primary:hover, .btn-danger:hover {
+            background-color: #ee86b3;
+            border-color: #d70940;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        form {
+            display: inline-block;
+        }
+
+        input {
+            width: 60px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            background-color: #dc3545;
+            cursor: not-allowed;
+        }
+
+        span.out-of-stock {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        span.in-stock {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .search-info {
+            margin-top: 20px;
+        }
+        button.add-to-cart-btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        button.add-to-cart-btn:disabled {
+            background-color: #dc3545;
+            cursor: not-allowed;
+        }
+
+        span.out-of-stock {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        span.in-stock {
+            color: #28a745;
+            font-weight: bold;
+        }
+        form.add-to-cart-form {
+            display: inline-block;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Search Results</h1>
+        <a href="{{ url_for('user_sections') }}" class="btn btn-primary">Back to Sections</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Manufacture Date</th>
+                    <th>Expiry Date</th>
+                    <th>Units</th>
+                    <th>Action</th>
+                    <th>Availability</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.manufacture_date.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ product.exp_date.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ product.units }}</td>
+                    <td>
+                        {% if product.units > 0 %}
+                            <form method="POST" action="{{ url_for('add_to_cart', product_id=product.id) }}">
+                                <input type="number" name="quantity" min="1" value="1">
+                                <button type="submit">Add to Cart</button>
+                            </form>
+                        {% else %}
+                            <button disabled>Out of Stock</button>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if product.out_of_stock %}
+                            <span class="out-of-stock">Out of Stock</span>
+                        {% else %}
+                            <span class="in-stock">In Stock</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if search_query %}
+            <p class="search-info">Showing results for: "{{ search_query }}"</p>
+        {% else %}
+            <p class="search-info">No search query provided.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

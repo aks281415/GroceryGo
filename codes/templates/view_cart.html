@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Cart</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #fceded;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin-top: 20px;
+            margin-bottom: 40px;
+            text-align: center;
+            font-size: 40px;
+            color: #551010;
+            text-shadow: 1px 1px #f2f2f2;
+        }
+
+        .btn-primary {
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 4px;
+            background-color: #62695c;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .total-price {
+    font-weight: bolder;
+    margin-top: 20px;
+    text-align: right;
+    font-size: 20px;
+    color: #551010;
+    padding: 10px;
+
+    border-radius: 4px;
+    background-color: #f2f2f2;
+}
+
+
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        form {
+            display: inline-block;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>View Cart</h1>
+        <a href="{{ url_for('user_sections') }}" class="btn btn-primary">Back to Sections</a>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.product.price }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.quantity * item.product.price }}</td>
+                    <td>
+                        <form method="POST" action="{{ url_for('delete_cart_item', cart_item_id=item.id) }}">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" onclick="return confirm('Are you sure you want to remove this item from the cart?')" class="btn btn-danger">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p class="total-price">Total Price: {{ total_price }}</p>
+        <a href="{{ url_for('order_placed') }}" class="btn btn-success">Place Order</a>
+
+    </div>
+</body>
+</html>
+
+
+

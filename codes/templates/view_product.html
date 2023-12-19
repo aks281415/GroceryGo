@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Products</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fceded;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin-top: 20px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        th, td {
+            text-align: center;
+        }
+
+        .btn-primary, .btn-danger {
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .btn-primary:hover, .btn-danger:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>View Products</h1>
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Manufacture Date</th>
+                    <th>Expiry Date</th>
+                    <th>Units</th>
+                    <th>Actions</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in section.products %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.manufacture_date.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ product.exp_date.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ product.units }}</td>
+                    <td>
+                        <a href="{{ url_for('edit_product', product_id=product.id) }}" class="btn btn-primary">Edit Product</a>
+                        <form method="POST" action="{{ url_for('delete_product', product_id=product.id) }}" style="display: inline-block;">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this product?')">Delete Product</button>
+                        </form>
+                    </td>
+                    <td>{{ "Out of Stock" if product.out_of_stock else "In Stock" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+

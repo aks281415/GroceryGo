@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Sections</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logout-btn {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .search-form {
+            margin-bottom: 20px;
+        }
+
+        .section-list li {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #ebe5e5;
+        }
+
+        .view-products-btn {
+            background-color: #0ad0bc;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .view-cart-btn {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <div class="row w-100"> <!-- Use row to create two columns -->
+                <div class="col-md-6 d-flex align-items-center"> <!-- First column for 'GroceryGo' brand and 'User Sections' -->
+                    <a class="navbar-brand"> User's Section</a>
+                </div>
+                <div class="col-md-6 d-flex justify-content-end align-items-center"> <!-- Second column for logout and search -->
+                    <a href="{{ url_for('user_logout') }}" class="logout-btn">Logout</a>
+                    <form method="GET" action="{{ url_for('user_search_products') }}" class="search-form ml-3">
+                        <br>
+                        <input type="text" name="search_query" placeholder="Search by section or product name">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <br>
+        
+        <ul class="section-list">
+            {% for section in sections %}
+            <li>
+                <h2>{{ section.name }}</h2>
+                <a href="{{ url_for('user_view_products', section_id=section.id) }}" class="view-products-btn">View Products</a>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <a href="{{ url_for('view_cart') }}" class="view-cart-btn">View Cart</a>
+    </div>
+    
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+

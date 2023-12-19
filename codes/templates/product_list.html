@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #000; /* Added black boundary lines */
+            padding: 8px;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2; /* Added background color for even rows */
+        }
+
+        tr:hover {
+            background-color: #ddd; /* Added background color for hovered rows */
+        }
+
+        th {
+            background-color: #333; /* Added background color for table header */
+            color: #fff;
+        }
+        .logout-button {
+            background-color: rgb(40, 74, 145);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none; /* Remove underline */
+            display: inline-block; /* To make the button inline and adjust height */
+            vertical-align: middle; /* Vertically center the button */
+        }
+
+        .logout-button:hover {
+            background-color: #777bdd;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container mt-5">
+        <h1 class="text-center">Product List</h1>
+        <br>
+        <div class="text-center"> <!-- Center the button -->
+            <a href="{{ url_for('admin_logout') }}" class="logout-button">Logout</a>
+        </div>
+        <br>
+        <table class="table table-bordered">
+            <thead>
+                
+                <tr>
+                    <th style="text-align: center;">Name</th>
+                    <th style="text-align: center;">Price</th>
+                    <th style="text-align: center;">Manufacture Date</th>
+                    <th style="text-align: center;">Expiry Date</th>
+                    <th style="text-align: center;">Units</th>
+                    <th style="text-align: center;">Section</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td style="text-align: center;">{{ product.name }}</td>
+                        <td style="text-align: center;">{{ product.price }}</td>
+                        <td style="text-align: center;">{{ product.manufacture_date.strftime('%Y-%m-%d') }}</td>
+                        <td style="text-align: center;">{{ product.exp_date.strftime('%Y-%m-%d') }}</td>
+                        <td style="text-align: center;">{{ product.units }}</td>
+                        <td style="text-align: center;">{{ product.section.name }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+
+
+        
+
+
